@@ -1,29 +1,33 @@
 {
-  "meta": {"version":"0.5","updated":"2026-09-10T10:31:00+02:00","note":"Research snapshot. Kurse sind nicht automatisch Streaming-Daten."},
+  "meta": {
+    "version": "0.6",
+    "updated": "2026-09-10T13:31:00+02:00",
+    "note": "Deep-scan research snapshot. Kurse sind keine Streaming-Daten; Status berücksichtigt Bewertung, Qualität, technische Lage und Makro-Risiko."
+  },
   "opportunities": [
-    {"ticker":"ADBE","sector":"Software / Contrarian","company":87,"opportunity":88,"status":"EVENT RISK","price":"~$255","l1":"$245–255","l2":"$225–235","l3":"$195–210","flag":"EARNINGS TODAY"},
-    {"ticker":"NVDA","sector":"AI","company":96,"opportunity":89,"status":"WATCH","price":"Deep scan","l1":"$210–220","l2":"$190–200","l3":"$165–180","flag":"QUALITY"},
-    {"ticker":"NOW","sector":"AI Software","company":91,"opportunity":84,"status":"WATCH","price":"$131.11","l1":"$125–132","l2":"$115–120","l3":"$100–108","flag":"AI SOFTWARE RISK"},
-    {"ticker":"CI","sector":"Healthcare Value","company":88,"opportunity":86,"status":"L1 WATCH","price":"$275.83","l1":"$268–278","l2":"$250–258","l3":"$230–240","flag":"VALUE + INCOME"},
-    {"ticker":"AVGO","sector":"AI","company":94,"opportunity":87,"status":"PREPARE","price":"$364.38","l1":"$350–365","l2":"$320–335","l3":"$285–300","flag":"-26% FROM 52W HIGH"},
-    {"ticker":"UBER","sector":"Mobility","company":85,"opportunity":87,"status":"L1 / REVERSAL WATCH","price":"$72.53","l1":"$70–73","l2":"$64–67","l3":"$56–60","flag":"BELOW 200DMA"},
-    {"ticker":"GOOGL","sector":"Compounder","company":95,"opportunity":86,"status":"WATCH","price":"Deep scan","l1":"$305–320","l2":"$275–290","l3":"$245–260","flag":"CORE QUALITY"},
-    {"ticker":"MU","sector":"AI / Memory","company":84,"opportunity":86,"status":"DON'T CHASE","price":"$1,027.78","l1":"Pending","l2":"Pending","l3":"Pending","flag":"HIGH BETA"},
-    {"ticker":"NVO","sector":"Healthcare","company":91,"opportunity":84,"status":"TURNAROUND","price":"Deep scan","l1":"$42–46","l2":"$37–40","l3":"$31–34","flag":"QUALITY CORRECTION"},
-    {"ticker":"UNH","sector":"Healthcare","company":92,"opportunity":83,"status":"WATCH","price":"Deep scan","l1":"$370–390","l2":"$335–355","l3":"$295–315","flag":"TURNAROUND"},
-    {"ticker":"MSFT","sector":"Core Compounder","company":97,"opportunity":72,"status":"CORE WATCH","price":"Deep scan","l1":"$455–475","l2":"$415–435","l3":"$375–400","flag":"CORE SLOT"},
-    {"ticker":"ADSK","sector":"Software","company":86,"opportunity":82,"status":"WATCH","price":"Deep scan","l1":"$195–210","l2":"$175–185","l3":"$150–165","flag":"QUALITY CORRECTION"},
-    {"ticker":"NKE","sector":"Apparel","company":82,"opportunity":80,"status":"L1 TURNAROUND","price":"$37.35","l1":"$35–38","l2":"$31–33","l3":"$27–29","flag":"NEEDS REVERSAL"},
-    {"ticker":"CEG","sector":"AI Power","company":88,"opportunity":82,"status":"WATCH","price":"$293.91","l1":"$275–290","l2":"$245–260","l3":"$215–230","flag":"-29% FROM 52W HIGH"},
-    {"ticker":"AMAT","sector":"Semis","company":90,"opportunity":84,"status":"WATCH PULLBACK","price":"$468.85","l1":"$440–455","l2":"$415–430","l3":"$380–400","flag":"STRONG MOMENTUM"}
+    {"ticker":"ADBE","sector":"Software / Contrarian","company":87,"opportunity":86,"status":"EVENT RISK","price":"$254.86","l1":"$245–255","l2":"$225–235","l3":"$195–210","flag":"EARNINGS TODAY · FCF YIELD ~10%"},
+    {"ticker":"NVDA","sector":"AI","company":96,"opportunity":90,"status":"L1 WATCH","price":"$223.67","l1":"$210–220","l2":"$190–200","l3":"$165–180","flag":"QUALITY · FWD PE 18.7 · HIGH BETA"},
+    {"ticker":"NOW","sector":"AI Software","company":91,"opportunity":82,"status":"WATCH","price":"$131.11","l1":"$125–132","l2":"$115–120","l3":"$100–108","flag":"QUALITY CORRECTION · FWD PE ~29.6"},
+    {"ticker":"CI","sector":"Healthcare Value","company":88,"opportunity":88,"status":"L1 WATCH","price":"$278.17","l1":"$268–278","l2":"$250–258","l3":"$230–240","flag":"FWD PE 8.8 · P/FCF 8.1 · DIV ~2.3%"},
+    {"ticker":"AVGO","sector":"AI","company":94,"opportunity":88,"status":"PREPARE","price":"$364.38","l1":"$350–365","l2":"$320–335","l3":"$285–300","flag":"~26% BELOW 52W HIGH · FWD PE 21"},
+    {"ticker":"UBER","sector":"Mobility","company":85,"opportunity":87,"status":"L1 / REVERSAL WATCH","price":"$72.53","l1":"$70–73","l2":"$64–67","l3":"$56–60","flag":"FWD PE 17.5 · P/FCF 14.8 · BELOW 200DMA"},
+    {"ticker":"GOOGL","sector":"Compounder","company":95,"opportunity":84,"status":"WATCH","price":"$330.65","l1":"$305–320","l2":"$275–290","l3":"$245–260","flag":"STRONG BUY CONSENSUS · ~29% TARGET UPSIDE"},
+    {"ticker":"NVO","sector":"Healthcare","company":91,"opportunity":80,"status":"TURNAROUND WATCH","price":"$44.56","l1":"$42–45","l2":"$37–40","l3":"$31–34","flag":"PE ~11 · DIV ~2.9% · GROWTH SLOWED"},
+    {"ticker":"UNH","sector":"Healthcare","company":92,"opportunity":85,"status":"WATCH / PREPARE","price":"$393.06","l1":"$380–395","l2":"$350–365","l3":"$315–330","flag":"~21% ANALYST UPSIDE · DIV 2.36%"},
+    {"ticker":"ADSK","sector":"Software","company":86,"opportunity":83,"status":"WATCH","price":"$206.62","l1":"$195–210","l2":"$175–185","l3":"$150–165","flag":"~37% BELOW 52W HIGH"},
+    {"ticker":"NKE","sector":"Apparel","company":82,"opportunity":80,"status":"L1 TURNAROUND","price":"$37.35","l1":"$35–38","l2":"$31–33","l3":"$27–29","flag":"NEEDS REVERSAL CONFIRMATION"},
+    {"ticker":"CEG","sector":"AI Power","company":88,"opportunity":82,"status":"WATCH","price":"$293.91","l1":"$275–290","l2":"$245–260","l3":"$215–230","flag":"AI INFRA · ~29% BELOW 52W HIGH"},
+    {"ticker":"AMAT","sector":"Semis","company":90,"opportunity":82,"status":"WATCH PULLBACK","price":"$468.85","l1":"$440–455","l2":"$415–430","l3":"$380–400","flag":"STRONG MOMENTUM · DO NOT CHASE"},
+    {"ticker":"MSFT","sector":"Core Compounder","company":97,"opportunity":72,"status":"CORE WATCH","price":"Deep scan","l1":"$455–475","l2":"$415–435","l3":"$375–400","flag":"CORE SLOT"}
   ],
   "income": [
-    {"ticker":"CWEN","score":89,"yield":"~5.7%","status":"BUY/WATCH","l1":"$30–32","l2":"$27–29","thesis":"Yield + Infrastruktur"},
-    {"ticker":"BDX","score":83,"yield":"Deep scan","status":"WATCH","l1":"Pending","l2":"Pending","thesis":"Healthcare + defensiv"},
-    {"ticker":"O","score":78,"yield":"~5.3%","status":"INCOME WATCH","l1":"Pending","l2":"Pending","thesis":"Monatliche Ausschüttung"}
+    {"ticker":"CWEN","score":90,"yield":"5.74%","status":"BUY/WATCH","l1":"$30–32","l2":"$27–29","thesis":"FCF yield ~7.8%, dividend growth ~6.7%, analyst upside ~27%"},
+    {"ticker":"BDX","score":80,"yield":"2.34%","status":"WATCH","l1":"$170–180","l2":"$155–165","thesis":"Healthcare defensive, FWD PE ~13.6; yield modest, not pure high-income"},
+    {"ticker":"O","score":79,"yield":"5.41%","status":"INCOME WATCH","l1":"$57–60","l2":"$52–55","thesis":"Monthly dividend, 22 years growth; rate-sensitive REIT"}
   ],
   "discovery": [
-    {"ticker":"KLAC","type":"Quality Correction","snapshot":"$182.91","status":"DEEP SCAN","reason":"~40% unter 52W-Hoch; Semiconductor Equipment"},
-    {"ticker":"MU","type":"AI / Memory Momentum","snapshot":"$1,027.78","status":"DON'T CHASE","reason":"Starke Dynamik, aber sehr weit gelaufen"}
+    {"ticker":"KLAC","type":"Quality Correction","snapshot":"$182.91","status":"DEEP SCAN","reason":"~40% below 52W high; semiconductor equipment"},
+    {"ticker":"ANET","type":"AI Networking","snapshot":"Discovery","status":"SCAN NEXT","reason":"AI-networking beneficiary; compare valuation vs AVGO/NVDA"},
+    {"ticker":"TSM","type":"AI Foundry","snapshot":"Discovery","status":"SCAN NEXT","reason":"AI infrastructure exposure with different valuation profile"}
   ]
 }
