@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": "1.3-auto",
-    "updated": "2026-11-07T10:03:59+01:00",
+    "updated": "2026-11-08T10:21:07+01:00",
     "note": "Automatisches Marktupdate: 34/34 Symbole aktualisiert. Kurse, RSI14, 50/200DMA, technischer Status und dynamische Entry/Momentum-Scores sind aktuell. Fundamentale These, qualitative Flags und Buy-Zonen stammen aus dem Research-Stand 2026-10-16T16:15:00+02:00.",
     "researchUpdated": "2026-10-16T16:15:00+02:00",
     "refreshMode": "nightly-market",
@@ -120,7 +120,7 @@
       "l3": "$60–65",
       "flag": "+4.2% BOUNCE · CONSENSUS BUY · ~19% TARGET UPSIDE · L1 ACTIVE",
       "technicalTrend": "neutral",
-      "expectedUpside": 11.3,
+      "expectedUpside": 13.0,
       "breakdown": {
         "quality": 91,
         "valuation": 90,
@@ -153,7 +153,7 @@
       "l3": "$30–32",
       "flag": "DEEP VALUE / GLP-1 TURNAROUND · L1 ACTIVE · COMPETITION RISK",
       "technicalTrend": "bearish",
-      "expectedUpside": 11.4,
+      "expectedUpside": 13.2,
       "breakdown": {
         "quality": 91,
         "valuation": 94,
@@ -186,7 +186,7 @@
       "l3": "$285–300",
       "flag": "AI INFRA QUALITY · L1 ACTIVE · SEMI/AI SENTIMENT WEAK",
       "technicalTrend": "bearish",
-      "expectedUpside": 79.4,
+      "expectedUpside": 81.6,
       "breakdown": {
         "quality": 95,
         "valuation": 80,
@@ -252,7 +252,7 @@
       "l3": "$57–60",
       "flag": "L1 ACTIVE · OCTOBER BASE IMPROVING · KEEP REVERSAL DISCIPLINE",
       "technicalTrend": "bearish",
-      "expectedUpside": 46.9,
+      "expectedUpside": 44.6,
       "breakdown": {
         "quality": 86,
         "valuation": 84,
@@ -285,7 +285,7 @@
       "l3": "$250–260",
       "flag": "DEFENSIVE QUALITY · CONSENSUS BUY · ~15% TARGET UPSIDE",
       "technicalTrend": "bullish",
-      "expectedUpside": 16.6,
+      "expectedUpside": 16.7,
       "breakdown": {
         "quality": 89,
         "valuation": 91,
@@ -318,7 +318,7 @@
       "l3": "$220–232",
       "flag": "AI POWER QUALITY · VOLATILE RANGE · L1 ACTIVE",
       "technicalTrend": "bearish",
-      "expectedUpside": 35.7,
+      "expectedUpside": 35.1,
       "breakdown": {
         "quality": 90,
         "valuation": 72,
@@ -516,7 +516,7 @@
       "l3": "$195–210",
       "flag": "WELLS FARGO UNDERWEIGHT · PT $225 · GROWTH/LEADERSHIP RISK",
       "technicalTrend": "neutral",
-      "expectedUpside": 12.1,
+      "expectedUpside": 11.6,
       "breakdown": {
         "quality": 86,
         "valuation": 84,
@@ -549,7 +549,7 @@
       "l3": "$43–45",
       "flag": "CHEAP BUT CONSENSUS TARGET ~CURRENT PRICE · EARNINGS 27 OCT",
       "technicalTrend": "bullish",
-      "expectedUpside": -4.1,
+      "expectedUpside": -3.6,
       "breakdown": {
         "quality": 84,
         "valuation": 92,
@@ -689,7 +689,7 @@
       "trend": "Neutral; RSI14 63.0, Kurs vs. 50/200DMA wird automatisch aktualisiert.",
       "marketTrend": "REITs reagieren stark auf langfristige Anleiherenditen.",
       "technicalTrend": "neutral",
-      "expectedUpside": 8.7,
+      "expectedUpside": 7.8,
       "breakdown": {
         "quality": 88,
         "valuation": 84,
@@ -826,7 +826,7 @@
     {
       "ticker": "ASML",
       "type": "AI Lithography / Quality",
-      "snapshot": "07 Nov 2026",
+      "snapshot": "08 Nov 2026",
       "status": "DEEP SCAN NOW",
       "reason": "Auto-Check: ~$1424.8, RSI14 34.6, Trend neutral. Research: Semiconductor sell-off is creating better entries; compare valuation and support versus AMAT/NVDA/AVGO.",
       "researchReason": "Semiconductor sell-off is creating better entries; compare valuation and support versus AMAT/NVDA/AVGO."
@@ -834,7 +834,7 @@
     {
       "ticker": "PANW",
       "type": "Cybersecurity / Quality",
-      "snapshot": "07 Nov 2026",
+      "snapshot": "08 Nov 2026",
       "status": "SCAN NEXT",
       "reason": "Auto-Check: ~$313.8, RSI14 32.8, Trend neutral. Research: Structural security growth can diversify away from semiconductor/AI-capex concentration.",
       "researchReason": "Structural security growth can diversify away from semiconductor/AI-capex concentration."
@@ -842,7 +842,7 @@
     {
       "ticker": "MU",
       "type": "AI Memory / Cyclical",
-      "snapshot": "07 Nov 2026",
+      "snapshot": "08 Nov 2026",
       "status": "WAIT FOR BASE",
       "reason": "Auto-Check: ~$690.0, RSI14 31.3, Trend neutral. Research: Memory/AI complex is under pressure; only interesting after technical stabilization and revised entry valuation.",
       "researchReason": "Memory/AI complex is under pressure; only interesting after technical stabilization and revised entry valuation."
