@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": "1.3-auto",
-    "updated": "2026-11-08T10:21:07+01:00",
+    "updated": "2026-11-09T11:07:12+01:00",
     "note": "Automatisches Marktupdate: 34/34 Symbole aktualisiert. Kurse, RSI14, 50/200DMA, technischer Status und dynamische Entry/Momentum-Scores sind aktuell. Fundamentale These, qualitative Flags und Buy-Zonen stammen aus dem Research-Stand 2026-10-16T16:15:00+02:00.",
     "researchUpdated": "2026-10-16T16:15:00+02:00",
     "refreshMode": "nightly-market",
@@ -153,7 +153,7 @@
       "l3": "$30–32",
       "flag": "DEEP VALUE / GLP-1 TURNAROUND · L1 ACTIVE · COMPETITION RISK",
       "technicalTrend": "bearish",
-      "expectedUpside": 13.2,
+      "expectedUpside": 13.7,
       "breakdown": {
         "quality": 91,
         "valuation": 94,
@@ -351,7 +351,7 @@
       "l3": "$195–205",
       "flag": "+6% BOUNCE · WAIT FOR RETEST OF NEW SUPPORT",
       "technicalTrend": "neutral",
-      "expectedUpside": 17.5,
+      "expectedUpside": 17.8,
       "breakdown": {
         "quality": 88,
         "valuation": 79,
@@ -483,7 +483,7 @@
       "l3": "$455–470",
       "flag": "CORE QUALITY · STRONG BUY · EARNINGS 28 OCT · PRICE NEAR HIGH RANGE",
       "technicalTrend": "bullish",
-      "expectedUpside": 19.5,
+      "expectedUpside": 19.9,
       "breakdown": {
         "quality": 98,
         "valuation": 65,
@@ -516,7 +516,7 @@
       "l3": "$195–210",
       "flag": "WELLS FARGO UNDERWEIGHT · PT $225 · GROWTH/LEADERSHIP RISK",
       "technicalTrend": "neutral",
-      "expectedUpside": 11.6,
+      "expectedUpside": 11.5,
       "breakdown": {
         "quality": 86,
         "valuation": 84,
@@ -826,7 +826,7 @@
     {
       "ticker": "ASML",
       "type": "AI Lithography / Quality",
-      "snapshot": "08 Nov 2026",
+      "snapshot": "09 Nov 2026",
       "status": "DEEP SCAN NOW",
       "reason": "Auto-Check: ~$1424.8, RSI14 34.6, Trend neutral. Research: Semiconductor sell-off is creating better entries; compare valuation and support versus AMAT/NVDA/AVGO.",
       "researchReason": "Semiconductor sell-off is creating better entries; compare valuation and support versus AMAT/NVDA/AVGO."
@@ -834,7 +834,7 @@
     {
       "ticker": "PANW",
       "type": "Cybersecurity / Quality",
-      "snapshot": "08 Nov 2026",
+      "snapshot": "09 Nov 2026",
       "status": "SCAN NEXT",
       "reason": "Auto-Check: ~$313.8, RSI14 32.8, Trend neutral. Research: Structural security growth can diversify away from semiconductor/AI-capex concentration.",
       "researchReason": "Structural security growth can diversify away from semiconductor/AI-capex concentration."
@@ -842,7 +842,7 @@
     {
       "ticker": "MU",
       "type": "AI Memory / Cyclical",
-      "snapshot": "08 Nov 2026",
+      "snapshot": "09 Nov 2026",
       "status": "WAIT FOR BASE",
       "reason": "Auto-Check: ~$690.0, RSI14 31.3, Trend neutral. Research: Memory/AI complex is under pressure; only interesting after technical stabilization and revised entry valuation.",
       "researchReason": "Memory/AI complex is under pressure; only interesting after technical stabilization and revised entry valuation."
