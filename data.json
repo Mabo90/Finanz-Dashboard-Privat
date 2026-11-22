@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": "1.3-auto",
-    "updated": "2026-11-21T11:04:06+01:00",
+    "updated": "2026-11-22T11:06:00+01:00",
     "note": "Automatisches Marktupdate: 34/34 Symbole aktualisiert. Kurse, RSI14, 50/200DMA, technischer Status und dynamische Entry/Momentum-Scores sind aktuell. Fundamentale These, qualitative Flags und Buy-Zonen stammen aus dem Research-Stand 2026-10-16T16:15:00+02:00.",
     "researchUpdated": "2026-10-16T16:15:00+02:00",
     "refreshMode": "nightly-market",
@@ -610,7 +610,7 @@
       "name": "Clearway Energy",
       "sector": "Income / Energy Infrastructure",
       "score": 79,
-      "yield": "6.27%",
+      "yield": "6.76%",
       "status": "INCOME WATCH",
       "price": "~$28.53",
       "l1": "$29–30.5",
@@ -702,7 +702,7 @@
       "name": "Realty Income",
       "sector": "Income / REIT",
       "score": 79,
-      "yield": "5.70%",
+      "yield": "5.67%",
       "status": "INCOME WATCH",
       "price": "~$58.03",
       "l1": "$53.5–56",
@@ -862,7 +862,7 @@
     {
       "ticker": "ASML",
       "type": "AI Lithography / Quality",
-      "snapshot": "21 Nov 2026",
+      "snapshot": "22 Nov 2026",
       "status": "DEEP SCAN NOW",
       "reason": "Auto-Check: ~$1266.2, RSI14 28.8, Trend neutral. Research: Semiconductor sell-off is creating better entries; compare valuation and support versus AMAT/NVDA/AVGO.",
       "researchReason": "Semiconductor sell-off is creating better entries; compare valuation and support versus AMAT/NVDA/AVGO."
@@ -870,7 +870,7 @@
     {
       "ticker": "PANW",
       "type": "Cybersecurity / Quality",
-      "snapshot": "21 Nov 2026",
+      "snapshot": "22 Nov 2026",
       "status": "SCAN NEXT",
       "reason": "Auto-Check: ~$343.3, RSI14 48.8, Trend neutral. Research: Structural security growth can diversify away from semiconductor/AI-capex concentration.",
       "researchReason": "Structural security growth can diversify away from semiconductor/AI-capex concentration."
@@ -878,7 +878,7 @@
     {
       "ticker": "MU",
       "type": "AI Memory / Cyclical",
-      "snapshot": "21 Nov 2026",
+      "snapshot": "22 Nov 2026",
       "status": "WAIT FOR BASE",
       "reason": "Auto-Check: ~$594.5, RSI14 29.5, Trend neutral. Research: Memory/AI complex is under pressure; only interesting after technical stabilization and revised entry valuation.",
       "researchReason": "Memory/AI complex is under pressure; only interesting after technical stabilization and revised entry valuation."
