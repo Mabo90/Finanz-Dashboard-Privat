@@ -13,7 +13,8 @@ import yfinance as yf
 ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = ROOT / "data.json"
 TZ = ZoneInfo("Europe/Berlin")
-FIB_RATIOS = (0.5, 0.618, 0.716, 0.882, 0.941)
+FIB_RATIOS = (0.236, 0.382, 0.5, 0.618, 0.716, 0.786, 0.882, 0.941)
+ENTRY_FIB_RATIOS = (0.5, 0.618, 0.716, 0.882, 0.941)
 
 def clamp(v, lo=0, hi=100):
     return max(lo, min(hi, v))
@@ -131,15 +132,14 @@ def score_item(item, snap, score_key):
     item[score_key] = round(clamp(base - penalty))
 
 def weekly_fib_setup(ticker, current_price):
-    """Weekly long-retracement setup from the last confirmed swing low to the next confirmed swing high."""
-    hist = ticker.history(period="3y", interval="1wk", auto_adjust=False, actions=False)
-    if hist is None or hist.empty or len(hist) < 12 or "High" not in hist or "Low" not in hist:
+    """Dominant macro weekly up-range for leveraged swing-trade retracements."""
+    hist = ticker.history(period="5y", interval="1wk", auto_adjust=False, actions=False)
+    if hist is None or hist.empty or len(hist) < 20 or "High" not in hist or "Low" not in hist:
         return None
-    hist = hist.dropna(subset=["High", "Low"]).copy()
-    if len(hist) < 12:
+    hist = hist.dropna(subset=["Open", "High", "Low", "Close"]).copy()
+    if len(hist) < 20:
         return None
 
-    # Ignore the still-open current weekly candle.
     now = datetime.now(TZ)
     current_monday = now.date() - timedelta(days=now.weekday())
     try:
@@ -147,38 +147,36 @@ def weekly_fib_setup(ticker, current_price):
             hist = hist.iloc[:-1]
     except Exception:
         pass
-    if len(hist) < 10:
+    if len(hist) < 20:
         return None
 
-    highs = hist["High"].astype(float)
-    lows = hist["Low"].astype(float)
-    pivot_highs, pivot_lows = [], []
-    left = right = 2
-    for i in range(left, len(hist) - right):
-        h = float(highs.iloc[i])
-        l = float(lows.iloc[i])
-        if h >= float(highs.iloc[i-left:i+right+1].max()):
-            pivot_highs.append(i)
-        if l <= float(lows.iloc[i-left:i+right+1].min()):
-            pivot_lows.append(i)
+    highs = hist["High"].astype(float).to_numpy()
+    lows = hist["Low"].astype(float).to_numpy()
 
-    if pivot_highs:
-        high_i = pivot_highs[-1]
-    else:
-        start = max(0, len(hist) - 26)
-        high_i = start + int(highs.iloc[start:].to_numpy().argmax())
+    min_sep = 8
+    best = None
+    running_low_i = 0
+    running_low = lows[0]
+    for high_i in range(min_sep, len(hist)):
+        candidate_i = high_i - min_sep
+        candidate_low = lows[candidate_i]
+        if math.isfinite(candidate_low) and candidate_low > 0 and candidate_low < running_low:
+            running_low = candidate_low
+            running_low_i = candidate_i
+        high = highs[high_i]
+        if not (math.isfinite(high) and math.isfinite(running_low) and running_low > 0 and high > running_low):
+            continue
+        gain = high / running_low - 1
+        score = gain + high_i * 1e-6
+        if best is None or score > best[0]:
+            best = (score, running_low_i, high_i, gain)
 
-    prior_lows = [i for i in pivot_lows if i < high_i]
-    if prior_lows:
-        low_i = prior_lows[-1]
-    else:
-        start = max(0, high_i - 26)
-        if high_i <= start:
-            return None
-        low_i = start + int(lows.iloc[start:high_i].to_numpy().argmin())
+    if best is None:
+        return None
 
-    swing_low = float(lows.iloc[low_i])
-    swing_high = float(highs.iloc[high_i])
+    _, low_i, high_i, macro_gain = best
+    swing_low = float(lows[low_i])
+    swing_high = float(highs[high_i])
     if not math.isfinite(swing_low) or not math.isfinite(swing_high) or swing_high <= swing_low:
         return None
 
@@ -188,14 +186,13 @@ def weekly_fib_setup(ticker, current_price):
     p0941 = levels["0.941"]
     coverage_pct = max(0.0, (p05 - p0941) / p05 * 100)
     theoretical_lev = (100 / coverage_pct) if coverage_pct > 0 else 20.0
-    # Reserve beyond 0.941: at least 2 percentage points or 25% of the 0.5→0.941 range.
     safety_buffer_pct = max(2.0, coverage_pct * 0.25)
     buffered_lev = 100 / (coverage_pct + safety_buffer_pct) if (coverage_pct + safety_buffer_pct) > 0 else 20.0
     buffered_lev = max(1.0, min(20.0, math.floor(buffered_lev * 2) / 2))
 
     next_ratio, next_price, next_dist = None, None, None
     candidates = []
-    for r in FIB_RATIOS:
+    for r in ENTRY_FIB_RATIOS:
         lp = levels[f"{r:g}"]
         if current_price >= lp:
             candidates.append((r, lp, (current_price - lp) / current_price * 100))
@@ -222,11 +219,24 @@ def weekly_fib_setup(ticker, current_price):
         except Exception:
             return str(hist.index[i])[:10]
 
+    chart_start = max(0, low_i - 8)
+    chart = []
+    for i in range(chart_start, len(hist)):
+        row = hist.iloc[i]
+        chart.append({
+            "d": dt_text(i),
+            "o": round(float(row["Open"]), 4),
+            "h": round(float(row["High"]), 4),
+            "l": round(float(row["Low"]), 4),
+            "c": round(float(row["Close"]), 4),
+        })
+
     return {
         "anchorLow": round(swing_low, 4),
         "anchorLowDate": dt_text(low_i),
         "anchorHigh": round(swing_high, 4),
         "anchorHighDate": dt_text(high_i),
+        "macroGainPct": round(macro_gain * 100, 1),
         "levels": {k: round(v, 4) for k, v in levels.items()},
         "coveragePct": round(coverage_pct, 2),
         "maxLeverageTheoretical": round(theoretical_lev, 2),
@@ -236,7 +246,8 @@ def weekly_fib_setup(ticker, current_price):
         "nextRatio": None if next_ratio is None else f"{next_ratio:g}",
         "nextPrice": None if next_price is None else round(next_price, 4),
         "distanceToNextPct": None if next_dist is None else round(next_dist, 2),
-        "method": "confirmed-weekly-swing-2x2"
+        "method": "dominant-macro-5y-weekly",
+        "chart": chart
     }
 
 def fetch_snapshot(symbol, need_info=False):
@@ -424,7 +435,7 @@ def main():
         if snap:
             update_discovery(item, snap, date_text)
 
-    meta["version"] = "1.4-weekly-fib"
+    meta["version"] = "1.5-macro-fib"
     meta["updated"] = now.isoformat(timespec="seconds")
     meta["refreshMode"] = "nightly-market"
     meta["symbolsUpdated"] = len(snapshots)
@@ -432,7 +443,7 @@ def main():
     research = meta.get("researchUpdated", "unbekannt")
     meta["note"] = (
         f"Automatisches Marktupdate: {len(snapshots)}/{len(symbols)} Symbole aktualisiert. "
-        f"Kurse, RSI14, 50/200DMA, Weekly-Fib-Level, technischer Status und dynamische Entry/Momentum-Scores sind aktuell. "
+        f"Kurse, RSI14, 50/200DMA, Macro-Weekly-Fib-Level, technischer Status und dynamische Entry/Momentum-Scores sind aktuell. "
         f"Fundamentale These, qualitative Flags und Buy-Zonen stammen aus dem Research-Stand {research}."
     )
 
