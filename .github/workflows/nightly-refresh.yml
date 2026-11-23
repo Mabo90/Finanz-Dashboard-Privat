@@ -4,6 +4,10 @@ on:
   schedule:
     - cron: "30 2 * * *"
   workflow_dispatch:
+  push:
+    paths:
+      - "scripts/refresh_dashboard.py"
+      - ".github/workflows/nightly-refresh.yml"
 
 permissions:
   contents: write
