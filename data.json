@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": "1.4-weekly-fib",
-    "updated": "2026-11-23T11:50:44+01:00",
+    "updated": "2026-11-23T12:02:33+01:00",
     "note": "Automatisches Marktupdate: 34/34 Symbole aktualisiert. Kurse, RSI14, 50/200DMA, Weekly-Fib-Level, technischer Status und dynamische Entry/Momentum-Scores sind aktuell. Fundamentale These, qualitative Flags und Buy-Zonen stammen aus dem Research-Stand 2026-10-16T16:15:00+02:00.",
     "researchUpdated": "2026-10-16T16:15:00+02:00",
     "refreshMode": "nightly-market",
@@ -241,7 +241,7 @@
       "l3": "$30–32",
       "flag": "DEEP VALUE / GLP-1 TURNAROUND · L1 ACTIVE · COMPETITION RISK",
       "technicalTrend": "bearish",
-      "expectedUpside": 20.8,
+      "expectedUpside": 20.7,
       "breakdown": {
         "quality": 91,
         "valuation": 94,
