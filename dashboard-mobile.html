@@ -22,9 +22,9 @@
   <div class="card full"><div class="label">Trading-Modul</div><div class="note">BTC-Setups und gehebelte Aktien-Trades werden hier getrennt von der langfristigen Investment-Watchlist geplant.</div></div>
   <div class="card full">
     <div class="label">📐 AKTIEN SWING TRADING · MACRO WEEKLY FIB</div>
-    <div class="note">Für gehebelte Aktien-Trades. Der Anker ist jetzt bewusst die dominante große Weekly-Aufwärtsrange der letzten Jahre (Macro Low → Macro High), nicht mehr der letzte kleine Swing. Die Entry-Level bleiben 0,50 / 0,618 / 0,716 / 0,882 / 0,941; 0,236 / 0,382 / 0,786 werden zusätzlich als Chart-Kontext gezeigt.</div>
+    <div class="note">Für gehebelte Aktien-Trades. Der Anker ist jetzt bewusst die dominante große Weekly-Aufwärtsrange der letzten Jahre (Macro Low → Macro High), nicht mehr der letzte kleine Swing. Die Entry-Level bleiben 0,50 / 0,618 / 0,786 / 0,882 / 0,941; 0,236 / 0,382 / 0,786 werden zusätzlich als Chart-Kontext gezeigt.</div>
     <table>
-      <thead><tr><th>Aktie</th><th>Alarm</th><th>Kurs</th><th>Nächstes Fib</th><th>Distanz</th><th>0,236</th><th>0,382</th><th>0,50</th><th>0,618</th><th>0,716</th><th>0,786</th><th>0,882</th><th>0,941</th><th>Range 0,50→0,941</th><th>Hebel theo.</th><th>Hebel + Puffer</th><th>Macro Low → High</th></tr></thead>
+      <thead><tr><th>Aktie</th><th>Alarm</th><th>Kurs</th><th>Nächstes Fib</th><th>Distanz</th><th>0,236</th><th>0,382</th><th>0,50</th><th>0,618</th><th>0,786</th><th>0,882</th><th>0,941</th><th>Range 0,50→0,941</th><th>Hebel theo.</th><th>Hebel + Puffer</th><th>Macro Low → High</th></tr></thead>
       <tbody id="weeklyFibRows"></tbody>
     </table>
   </div>
@@ -173,7 +173,7 @@ function updateFibWarner(){
    +'<td>'+fibMoney(l['0.382'])+'</td>'
    +'<td>'+fibMoney(l['0.5'])+'</td>'
    +'<td>'+fibMoney(l['0.618'])+'</td>'
-   +'<td>'+fibMoney(l['0.716'])+'</td>'
+   
    +'<td>'+fibMoney(l['0.786'])+'</td>'
    +'<td>'+fibMoney(l['0.882'])+'</td>'
    +'<td>'+fibMoney(l['0.941'])+'</td>'
@@ -198,7 +198,7 @@ function renderFastFibChart(item){
  if(note)note.textContent='Dominante große Weekly-Range. Candles und Fib-Zonen kommen direkt aus data.json – kein externer Chart muss erst laden.';
  if(!host||!f||!Array.isArray(f.chart)||!f.chart.length){if(host)host.innerHTML='<div class="note" style="padding:18px">Macro-Chartdaten werden mit dem nächsten Markt-Refresh geladen.</div>';return;}
  const bars=f.chart, W=1000,H=430,L=62,R=92,T=18,B=34,pw=W-L-R,ph=H-T-B;
- const ratios=[0,0.236,0.382,0.5,0.618,0.716,0.786,0.882,0.941,1];
+ const ratios=[0,0.236,0.382,0.5,0.618,0.786,0.882,0.941,1];
  const vals={0:f.anchorHigh,1:f.anchorLow,...(f.levels||{})};
  const all=bars.flatMap(b=>[Number(b.h),Number(b.l)]).concat([Number(f.anchorHigh),Number(f.anchorLow)]);
  let ymin=Math.min(...all),ymax=Math.max(...all),pad=(ymax-ymin)*0.04||1;ymin-=pad;ymax+=pad;
@@ -207,7 +207,7 @@ function renderFastFibChart(item){
  let svg='<svg viewBox="0 0 '+W+' '+H+'" width="100%" height="100%" role="img" aria-label="Macro Weekly Fibonacci Chart">';
  svg+='<rect x="'+L+'" y="'+T+'" width="'+pw+'" height="'+ph+'" fill="#10141c"/>';
  for(let i=0;i<ratios.length-1;i++){const r1=ratios[i],r2=ratios[i+1],yy1=ypos(Number(vals[r1])),yy2=ypos(Number(vals[r2]));svg+='<rect x="'+L+'" y="'+Math.min(yy1,yy2)+'" width="'+pw+'" height="'+Math.abs(yy2-yy1)+'" fill="'+bandColors[i]+'"/>';}
- const lineColors={'0':'#e85d75','0.236':'#ff6b6b','0.382':'#f4a340','0.5':'#70c46b','0.618':'#25b7a5','0.716':'#3ca7c8','0.786':'#29a9df','0.882':'#9aa3b2','0.941':'#f0a23b','1':'#8c7568'};
+ const lineColors={'0':'#e85d75','0.236':'#ff6b6b','0.382':'#f4a340','0.5':'#70c46b','0.618':'#25b7a5','0.786':'#29a9df','0.882':'#9aa3b2','0.941':'#f0a23b','1':'#8c7568'};
  for(const r of ratios){const v=Number(vals[r]);if(!Number.isFinite(v))continue;const yy=ypos(v),key=String(r);svg+='<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="'+(lineColors[key]||'#8791a1')+'" stroke-width="1.5"/>';svg+='<text x="'+(W-R+6)+'" y="'+(yy+4)+'" fill="'+(lineColors[key]||'#cbd5e1')+'" font-size="12">'+(r===0?'0':r===1?'1':String(r).replace('.',','))+' ('+Number(v).toFixed(v<100?2:1)+')</text>';}
  const cw=Math.max(1.2,Math.min(4.5,pw/bars.length*.58));
  bars.forEach((b,i)=>{const xx=xpos(i),yo=ypos(Number(b.o)),yc=ypos(Number(b.c)),yh=ypos(Number(b.h)),yl=ypos(Number(b.l)),up=Number(b.c)>=Number(b.o),col=up?'#35c793':'#ef6675';svg+='<line x1="'+xx+'" y1="'+yh+'" x2="'+xx+'" y2="'+yl+'" stroke="'+col+'" stroke-width="1"/>';svg+='<rect x="'+(xx-cw/2)+'" y="'+Math.min(yo,yc)+'" width="'+cw+'" height="'+Math.max(1,Math.abs(yc-yo))+'" fill="'+col+'"/>';});
