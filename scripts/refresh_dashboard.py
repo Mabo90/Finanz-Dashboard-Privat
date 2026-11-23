@@ -132,12 +132,12 @@ def score_item(item, snap, score_key):
     item[score_key] = round(clamp(base - penalty))
 
 def weekly_fib_setup(ticker, current_price):
-    """Dominant macro weekly up-range for leveraged swing-trade retracements."""
+    """Structural macro weekly impulse: last major reset low -> subsequent macro high."""
     hist = ticker.history(period="5y", interval="1wk", auto_adjust=False, actions=False)
-    if hist is None or hist.empty or len(hist) < 20 or "High" not in hist or "Low" not in hist:
+    if hist is None or hist.empty or len(hist) < 30 or "High" not in hist or "Low" not in hist:
         return None
     hist = hist.dropna(subset=["Open", "High", "Low", "Close"]).copy()
-    if len(hist) < 20:
+    if len(hist) < 30:
         return None
 
     now = datetime.now(TZ)
@@ -147,34 +147,121 @@ def weekly_fib_setup(ticker, current_price):
             hist = hist.iloc[:-1]
     except Exception:
         pass
-    if len(hist) < 20:
+    if len(hist) < 30:
         return None
 
     highs = hist["High"].astype(float).to_numpy()
     lows = hist["Low"].astype(float).to_numpy()
+    closes = hist["Close"].astype(float).to_numpy()
 
-    min_sep = 8
-    best = None
-    running_low_i = 0
-    running_low = lows[0]
-    for high_i in range(min_sep, len(hist)):
-        candidate_i = high_i - min_sep
-        candidate_low = lows[candidate_i]
-        if math.isfinite(candidate_low) and candidate_low > 0 and candidate_low < running_low:
-            running_low = candidate_low
-            running_low_i = candidate_i
-        high = highs[high_i]
-        if not (math.isfinite(high) and math.isfinite(running_low) and running_low > 0 and high > running_low):
+    # Major weekly pivot lows. A 4/4-week window filters out the small local swings.
+    pivot_lows = []
+    w = 4
+    for i in range(w, len(hist) - w):
+        lo = lows[i]
+        if math.isfinite(lo) and lo <= min(lows[i-w:i+w+1]):
+            pivot_lows.append(i)
+
+    candidates = []
+    for low_i in pivot_lows:
+        # Need enough history to establish the prior cycle high and enough room for the new impulse.
+        if low_i < 12 or low_i > len(hist) - 8:
             continue
-        gain = high / running_low - 1
-        score = gain + high_i * 1e-6
-        if best is None or score > best[0]:
-            best = (score, running_low_i, high_i, gain)
 
-    if best is None:
-        return None
+        prior_start = max(0, low_i - 52)
+        prior_end = max(prior_start + 1, low_i - 2)
+        prior_slice = highs[prior_start:prior_end]
+        if len(prior_slice) == 0:
+            continue
+        prior_rel = int(prior_slice.argmax())
+        prior_high_i = prior_start + prior_rel
+        prior_high = float(highs[prior_high_i])
+        low = float(lows[low_i])
+        if not (math.isfinite(prior_high) and math.isfinite(low) and prior_high > low > 0):
+            continue
 
-    _, low_i, high_i, macro_gain = best
+        reset_drawdown = (prior_high / low - 1) * 100
+
+        # The user's examples are real "reset" lows, not ordinary 10–20% pullbacks.
+        rolling_start = max(0, low_i - 52)
+        rolling_low = float(min(lows[rolling_start:low_i+1]))
+        near_52w_low = low <= rolling_low * 1.035
+
+        # Macro high is the strongest subsequent high after that reset low.
+        future = highs[low_i + 6:]
+        if len(future) == 0:
+            continue
+        high_i = low_i + 6 + int(future.argmax())
+        high = float(highs[high_i])
+        if not (math.isfinite(high) and high > low):
+            continue
+
+        impulse_gain = (high / low - 1) * 100
+        if impulse_gain < 50:
+            continue
+
+        # Structural confirmation: the move must reclaim/break the prior cycle high.
+        reclaim_slice = closes[low_i + 1:high_i + 1]
+        reclaimed_prior_high = len(reclaim_slice) > 0 and float(max(reclaim_slice)) >= prior_high * 1.01
+
+        # Primary definition: deep reset + major low + confirmed breakout.
+        strong_reset = reset_drawdown >= 30 and near_52w_low and reclaimed_prior_high
+
+        # Fallback for calmer stocks: still require a meaningful reset and breakout.
+        fallback_reset = reset_drawdown >= 22 and near_52w_low and reclaimed_prior_high and impulse_gain >= 80
+
+        if not (strong_reset or fallback_reset):
+            continue
+
+        # Prefer the most recent qualified structural reset. Gain/prominence only break close ties.
+        score = (
+            low_i * 100000
+            + min(reset_drawdown, 100) * 100
+            + min(impulse_gain, 500)
+        )
+        candidates.append({
+            "score": score,
+            "low_i": low_i,
+            "high_i": high_i,
+            "prior_high_i": prior_high_i,
+            "prior_high": prior_high,
+            "reset_drawdown": reset_drawdown,
+            "impulse_gain": impulse_gain,
+        })
+
+    if candidates:
+        best = max(candidates, key=lambda c: c["score"])
+        low_i = best["low_i"]
+        high_i = best["high_i"]
+        prior_high_i = best["prior_high_i"]
+        prior_high = best["prior_high"]
+        reset_drawdown = best["reset_drawdown"]
+        macro_gain = best["impulse_gain"] / 100
+        anchor_confidence = "HIGH"
+    else:
+        # Conservative fallback: use the largest 2Y impulse, but mark confidence lower.
+        start = max(0, len(hist) - 104)
+        best_pair = None
+        running_low_i = start
+        running_low = lows[start]
+        for high_i in range(start + 8, len(hist)):
+            candidate_i = high_i - 8
+            if lows[candidate_i] < running_low:
+                running_low = lows[candidate_i]
+                running_low_i = candidate_i
+            high = highs[high_i]
+            if running_low > 0 and high > running_low:
+                gain = high / running_low - 1
+                if best_pair is None or gain > best_pair[0]:
+                    best_pair = (gain, running_low_i, high_i)
+        if best_pair is None:
+            return None
+        macro_gain, low_i, high_i = best_pair
+        prior_high_i = max(0, low_i - 1)
+        prior_high = float(highs[prior_high_i])
+        reset_drawdown = (prior_high / lows[low_i] - 1) * 100 if prior_high > lows[low_i] else 0
+        anchor_confidence = "FALLBACK"
+
     swing_low = float(lows[low_i])
     swing_high = float(highs[high_i])
     if not math.isfinite(swing_low) or not math.isfinite(swing_high) or swing_high <= swing_low:
@@ -191,13 +278,13 @@ def weekly_fib_setup(ticker, current_price):
     buffered_lev = max(1.0, min(20.0, math.floor(buffered_lev * 2) / 2))
 
     next_ratio, next_price, next_dist = None, None, None
-    candidates = []
+    candidates_next = []
     for r in ENTRY_FIB_RATIOS:
         lp = levels[f"{r:g}"]
         if current_price >= lp:
-            candidates.append((r, lp, (current_price - lp) / current_price * 100))
-    if candidates:
-        next_ratio, next_price, next_dist = min(candidates, key=lambda x: x[2])
+            candidates_next.append((r, lp, (current_price - lp) / current_price * 100))
+    if candidates_next:
+        next_ratio, next_price, next_dist = min(candidates_next, key=lambda x: x[2])
 
     if current_price < p0941:
         status = "BELOW 0.941"
@@ -219,7 +306,7 @@ def weekly_fib_setup(ticker, current_price):
         except Exception:
             return str(hist.index[i])[:10]
 
-    chart_start = max(0, low_i - 8)
+    chart_start = max(0, min(prior_high_i, low_i) - 8)
     chart = []
     for i in range(chart_start, len(hist)):
         row = hist.iloc[i]
@@ -236,7 +323,11 @@ def weekly_fib_setup(ticker, current_price):
         "anchorLowDate": dt_text(low_i),
         "anchorHigh": round(swing_high, 4),
         "anchorHighDate": dt_text(high_i),
+        "priorCycleHigh": round(float(prior_high), 4),
+        "priorCycleHighDate": dt_text(prior_high_i),
+        "resetDrawdownPct": round(reset_drawdown, 1),
         "macroGainPct": round(macro_gain * 100, 1),
+        "anchorConfidence": anchor_confidence,
         "levels": {k: round(v, 4) for k, v in levels.items()},
         "coveragePct": round(coverage_pct, 2),
         "maxLeverageTheoretical": round(theoretical_lev, 2),
@@ -246,7 +337,7 @@ def weekly_fib_setup(ticker, current_price):
         "nextRatio": None if next_ratio is None else f"{next_ratio:g}",
         "nextPrice": None if next_price is None else round(next_price, 4),
         "distanceToNextPct": None if next_dist is None else round(next_dist, 2),
-        "method": "dominant-macro-5y-weekly",
+        "method": "structural-macro-reset-weekly",
         "chart": chart
     }
 
@@ -435,7 +526,7 @@ def main():
         if snap:
             update_discovery(item, snap, date_text)
 
-    meta["version"] = "1.5-macro-fib"
+    meta["version"] = "1.6-structural-macro-fib"
     meta["updated"] = now.isoformat(timespec="seconds")
     meta["refreshMode"] = "nightly-market"
     meta["symbolsUpdated"] = len(snapshots)
