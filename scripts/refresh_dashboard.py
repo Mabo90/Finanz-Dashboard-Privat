@@ -13,8 +13,8 @@ import yfinance as yf
 ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = ROOT / "data.json"
 TZ = ZoneInfo("Europe/Berlin")
-FIB_RATIOS = (0.236, 0.382, 0.5, 0.618, 0.716, 0.786, 0.882, 0.941)
-ENTRY_FIB_RATIOS = (0.5, 0.618, 0.716, 0.882, 0.941)
+FIB_RATIOS = (0.236, 0.382, 0.5, 0.618, 0.786, 0.882, 0.941)
+ENTRY_FIB_RATIOS = (0.5, 0.618, 0.786, 0.882, 0.941)
 
 def clamp(v, lo=0, hi=100):
     return max(lo, min(hi, v))
