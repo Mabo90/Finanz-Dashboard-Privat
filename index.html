@@ -110,7 +110,7 @@ function fibActionHtml(x){
 }
 function updateFibWarner(){
  const xs=weeklyFibUniverse();
- const rank=s=>{s=(s||'').toUpperCase();if(s.includes('HIT'))return 0;if(s.includes('PREPARE'))return 1;if(s.includes('WATCH'))return 2;if(s.includes('BELOW'))return 3;return 4;};
+ const rank=s=>{s=(s||'').toUpperCase();if(s.includes('HIT'))return 0;if(s.includes('PREPARE'))return 1;if(s.includes('WATCH'))return 2;if(s.includes('BELOW'))return 4;return 3;};
  xs.sort((a,b)=>rank(a.weeklyFib.status)-rank(b.weeklyFib.status)+(Number(a.weeklyFib.distanceToNextPct??999)-Number(b.weeklyFib.distanceToNextPct??999)));
  ACTIONS.fib=xs[0]||null;
  const el=document.getElementById('fibContent');if(el)el.innerHTML=fibActionHtml(ACTIONS.fib);
