@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": "1.6-structural-macro-fib",
-    "updated": "2026-11-26T12:19:22+01:00",
+    "updated": "2026-11-27T12:13:34+01:00",
     "note": "Automatisches Marktupdate: 34/34 Symbole aktualisiert. Kurse, RSI14, 50/200DMA, Macro-Weekly-Fib-Level, technischer Status und dynamische Entry/Momentum-Scores sind aktuell. Fundamentale These, qualitative Flags und Buy-Zonen stammen aus dem Research-Stand 2026-10-16T16:15:00+02:00.",
     "researchUpdated": "2026-10-16T16:15:00+02:00",
     "refreshMode": "nightly-market",
@@ -1150,7 +1150,7 @@
       "l3": "$360–380",
       "flag": "SHARP SEMI CORRECTION · NEAR 200D ~436 · STRONG BUY CONSENSUS, WAIT FOR BASE",
       "technicalTrend": "bearish",
-      "expectedUpside": 78.7,
+      "expectedUpside": 79.1,
       "breakdown": {
         "quality": 92,
         "valuation": 80,
@@ -10089,7 +10089,7 @@
       "l3": "$220–232",
       "flag": "AI POWER QUALITY · VOLATILE RANGE · L1 ACTIVE",
       "technicalTrend": "bearish",
-      "expectedUpside": 44.7,
+      "expectedUpside": 44.4,
       "breakdown": {
         "quality": 90,
         "valuation": 72,
@@ -10811,7 +10811,7 @@
       "l3": "$195–205",
       "flag": "+6% BOUNCE · WAIT FOR RETEST OF NEW SUPPORT",
       "technicalTrend": "bullish",
-      "expectedUpside": 24.6,
+      "expectedUpside": 24.7,
       "breakdown": {
         "quality": 88,
         "valuation": 79,
@@ -22085,7 +22085,7 @@
     {
       "ticker": "ASML",
       "type": "AI Lithography / Quality",
-      "snapshot": "26 Nov 2026",
+      "snapshot": "27 Nov 2026",
       "status": "DEEP SCAN NOW",
       "reason": "Auto-Check: ~$1303.1, RSI14 36.2, Trend neutral. Research: Semiconductor sell-off is creating better entries; compare valuation and support versus AMAT/NVDA/AVGO.",
       "researchReason": "Semiconductor sell-off is creating better entries; compare valuation and support versus AMAT/NVDA/AVGO.",
@@ -23048,7 +23048,7 @@
     {
       "ticker": "PANW",
       "type": "Cybersecurity / Quality",
-      "snapshot": "26 Nov 2026",
+      "snapshot": "27 Nov 2026",
       "status": "SCAN NEXT",
       "reason": "Auto-Check: ~$356.1, RSI14 52.7, Trend neutral. Research: Structural security growth can diversify away from semiconductor/AI-capex concentration.",
       "researchReason": "Structural security growth can diversify away from semiconductor/AI-capex concentration.",
@@ -23535,7 +23535,7 @@
     {
       "ticker": "MU",
       "type": "AI Memory / Cyclical",
-      "snapshot": "26 Nov 2026",
+      "snapshot": "27 Nov 2026",
       "status": "WAIT FOR BASE",
       "reason": "Auto-Check: ~$601.2, RSI14 35.7, Trend neutral. Research: Memory/AI complex is under pressure; only interesting after technical stabilization and revised entry valuation.",
       "researchReason": "Memory/AI complex is under pressure; only interesting after technical stabilization and revised entry valuation.",
